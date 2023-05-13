@@ -2,15 +2,19 @@ const mongoose = require('mongoose')
 
 
 const blogSchema = mongoose.Schema({
+
     username: String,
-    Avatar: String,
-    email: String,
-    password: String
+    title: String,
+    content: String,
+    category: String,
+    date: String,
+    likes: Number,
+    comments: Array
 })
 
-const blogsModel= mongoose.model("blogsdata",blogSchema)
+const blogsModel = mongoose.model('blogsdata', blogSchema)
 
 
-module.exports={
+module.exports = {
     blogsModel
 }
