@@ -3,7 +3,7 @@ const { blogsModel } = require("../Models/blogs.model")
 const blogsRouter=express.Router()
 
 blogsRouter.get("/",async (req,res)=>{
-    let userID=req.body
+    let {userID}=req.body
 try {
     
     let data = await blogsModel.find({_id:userID})
