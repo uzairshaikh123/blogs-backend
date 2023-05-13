@@ -20,7 +20,8 @@ res.status(500).send({"msg":"User Already Exist"})
         
         let newuser = new userModel({username,avatar,email,password:hash}) 
         await newuser.save()
-        res.status(200).send({"msg":"User Registered Successfully"})
+        let user =  await userModel.find({email})
+        res.status(200).send({"msg":"User Registered Successfully",userdetails:user})
     });
 
    }
@@ -38,11 +39,11 @@ userRouter.post("/login",async (req,res)=>{
 let {username,avatar,email,password}=req.body
 
 try {
-    let findemail = await userModel.find({username,email})
+    let findemail = await userModel.find({email})
     let hashpass=findemail[0].password
     bcrypt.compare(password, hashpass, function(err, result) {
         if(result){
-            res.status(200).send({"msg":"User logged in Succssfully",token:jwt.sign({ userID: findemail[0]._id }, 'user')})
+            res.status(200).send({"msg":"User logged in Succssfully",userdetails:findemail,token:jwt.sign({ userID: findemail[0]._id }, 'user')})
         }else{ 
             res.status(500).send({"msg":"User Not Found"})
         }
