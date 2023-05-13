@@ -12,7 +12,7 @@ userRouter.post("/register",async (req,res)=>{
 let {username,avatar,email,password}=req.body
 
 try {
-    let findemail = await userModel.find({username,email})
+    let findemail = await userModel.find({email})
    if(findemail.length>0){
 res.status(500).send({"msg":"User Already Exist"})
    }else{
